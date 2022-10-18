@@ -14,7 +14,7 @@ def get_dataset(env_name, runs):
     for run in range(runs):
         env.reset()
         counter = 0
-        out_path = 'datasets/dataset_{0}/'.format(run)
+        out_path = 'datasets/{0}/dataset_{1}/'.format(env, run)
         if os.path.exists(out_path):
             shutil.rmtree(out_path)
         os.makedirs(out_path)
@@ -28,15 +28,14 @@ def get_dataset(env_name, runs):
                 break
             img_out_path = out_path + '/{0}.jpg'.format(counter)
             imageio.imwrite(img_out_path, obs['pixel'])
-            print(env.render().shape)
             prompts_file.write(np.array2string(obs['glyphs'],  max_line_width = None)+'\n\n')
 
             counter += 1
 
 
 def main():
-    env = 'MiniHack-River-Monster-v0'
-    get_dataset(env, 2)
+    get_dataset('MiniHack-River-Monster-v0', 5)
+    get_dataset('MiniHack-River-v0', 5)
     
 
 if __name__ == '__main__':
