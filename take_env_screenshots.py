@@ -6,7 +6,6 @@ import shutil
 import numpy as np
 
 
-
 def get_dataset(env_name, runs):
     env = gym.make(env_name, observation_keys=("glyphs", "pixel"))
     np.set_printoptions(threshold = np.inf)
