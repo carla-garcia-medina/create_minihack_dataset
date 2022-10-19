@@ -18,7 +18,7 @@ def get_dataset(env_name, runs):
             shutil.rmtree(out_path)
         os.makedirs(out_path)
 
-        glyphs_file = open(out_path + 'prompts.txt', "w")
+        glyphs_file = open(out_path + 'glyphs.txt', "w")
         messages_file = open(out_path + 'messages.txt', "w")
 
         while True:
