@@ -7,19 +7,20 @@ import numpy as np
 
 
 def get_dataset(env_name, runs):
-    env = gym.make(env_name, observation_keys=("glyphs", "pixel"))
+    env = gym.make(env_name, observation_keys=("glyphs", "pixel", "message"))
     np.set_printoptions(threshold = np.inf)
     
     for run in range(runs):
         env.reset()
         counter = 0
-        out_path = 'datasets/{0}/dataset_{1}/'.format(env, run)
+        out_path = 'datasets/{0}/dataset_{1}/'.format(env_name, run)
         if os.path.exists(out_path):
             shutil.rmtree(out_path)
         os.makedirs(out_path)
 
-        prompts_out_path = out_path + 'prompts.txt'
-        prompts_file = open(prompts_out_path, "w")
+        glyphs_file = open(out_path + 'prompts.txt', "w")
+        messages_file = open(out_path + 'messages.txt', "w")
+
         while True:
             action = env.action_space.sample()
             obs, rewards, done, info = env.step(action)
@@ -27,9 +28,13 @@ def get_dataset(env_name, runs):
                 break
             img_out_path = out_path + '/{0}.jpg'.format(counter)
             imageio.imwrite(img_out_path, obs['pixel'])
-            prompts_file.write(np.array2string(obs['glyphs'],  max_line_width = None)+'\n\n')
+            glyphs_file.write(np.array2string(obs['glyphs'],  max_line_width = None)+'\n\n')
+            messages_file.write(np.array2string(obs['message'],  max_line_width = None)+'\n\n')
 
             counter += 1
+
+        glyphs_file.close()
+        messages_file.close()
 
 
 def main():
