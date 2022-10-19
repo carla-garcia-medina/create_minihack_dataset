@@ -28,8 +28,8 @@ def get_dataset(env_name, runs):
                 break
             img_out_path = out_path + '/{0}.jpg'.format(counter)
             imageio.imwrite(img_out_path, obs['pixel'])
-            glyphs_file.write(np.array2string(obs['glyphs'],  max_line_width = None)+'\n\n')
-            messages_file.write(np.array2string(obs['message'],  max_line_width = None)+'\n\n')
+            glyphs_file.write(np.array2string(obs['glyphs'],  max_line_width = np.inf)+'\n\n')
+            messages_file.write(np.array2string(obs['message'],  max_line_width = np.inf)+'\n\n')
 
             counter += 1
 
